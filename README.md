@@ -7,9 +7,9 @@ A self-hosted file sharing platform with a clean web interface, ShareX integrati
 - **ShareX integration** — One-click `.sxcu` config download for automatic screenshot uploads from Windows
 - **API uploads** — Bearer token authentication, compatible with curl, wget, and any HTTP client
 - **File viewing** — Images zoom inline, videos/audio stream with seek support (HTTP Range), PDFs render in-browser, code files syntax-highlighted
-- **File download** — Force-download endpoint (`/f/<id>/download`) separate from the inline viewer
+- **File download** — Force-download endpoint (`/f/{id}/download`) separate from the inline viewer
 - **Embed modes** — Per-user toggle between *embed* (rich HTML page with Open Graph / Twitter Card metadata) and *raw* (direct file redirect for native social embeds); social media bots (Discord, Telegram, Twitter, etc.) are detected automatically
-- **Share links** — Generate per-file share links (`/s/<token>`) with optional password protection, expiry date, and download limit
+- **Share links** — Generate per-file share links (`/s/{token}`) with optional password protection, expiry date, and download limit
 - **Collections** — Group files into named collections with optional password and expiry date, shareable via a single link
 - **Tags** — Tag files for organisation; define a personal set of predefined tags in Settings for quick reuse
 - **Thumbnails** — Video and PDF files get auto-generated JPEG thumbnails (requires ffmpeg / ghostscript, bundled in the Docker image)
@@ -158,7 +158,7 @@ ShareX receives a `deletionUrl` in the upload response and can delete files with
 
 ## Share Links
 
-Any file can have one or more share links generated from the file view. Each link is served at `/s/<token>` and supports:
+Any file can have one or more share links generated from the file view. Each link is served at `/s/{token}` and supports:
 
 - **Password protection** — visitors must enter a password before accessing the file
 - **Expiry date** — the link becomes invalid after the configured date
@@ -174,7 +174,7 @@ Collections group multiple files under a single shareable link. Create and manag
 - Optional password and expiry date
 - Adding / removing individual files
 
-Collections are served at `/c/<shortId>` and respect the same password/expiry rules as share links.
+Collections are served at `/c/{shortId}` and respect the same password/expiry rules as share links.
 
 ## Tags
 
@@ -280,7 +280,7 @@ Make sure `BASE_URL` in `.env` matches your public domain.
 
 ## Thumbnails
 
-Video and PDF files get a JPEG thumbnail automatically on upload. Thumbnails are stored in `uploads/.thumbnails/` and served at `/f/<shortId>/thumb`.
+Video and PDF files get a JPEG thumbnail automatically on upload. Thumbnails are stored in `uploads/.thumbnails/` and served at `/f/{shortId}/thumb`.
 
 ![Thumbnail Cards](docs/assets/thumbnails.png)
 
@@ -301,7 +301,7 @@ If the tools are unavailable, thumbnail generation is silently skipped and the g
 To generate thumbnails for files that were uploaded before this feature was introduced, run the migration script once inside the container:
 
 ```bash
-docker exec -it <container-name> npm run migrate:thumbnails
+docker exec -it {container-name} npm run migrate:thumbnails
 ```
 
 Or locally:
