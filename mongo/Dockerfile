@@ -8,7 +8,7 @@
 # MONGO_APP_PASSWORD, and MONGO_DB_NAME from the environment — all
 # injected via mongo/template-vars.json.
 
-FROM mongo:7
+FROM mongo:7.0.48
 
 COPY scripts/mongo-init.js /docker-entrypoint-initdb.d/mongo-init.js
 
